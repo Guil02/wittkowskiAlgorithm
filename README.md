@@ -9,7 +9,7 @@ This project currently only contains a Gui that reads in and prints a provided c
 A main method is provided in org.guil.main. run that and the program will start.
 
 ## authors
-* Guillaume Bams (g.bams@student.maastrichtuniversity.nl)
+* **Guillaume Bams** - *Bsc DSAI student* - [Guillaume](https://github.com/Guil02) - *Lead Developer*
 
 ## references
 Wittkowski, Knut M.. (2003). Novel Methods for Multivariate Ordinal Data applied to Genetic Diplotypes, Genomic Pathways, Risk Profiles, and Pattern Similarity. University Library of Munich, Germany, MPRA Paper. 35. 
