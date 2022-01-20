@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class ReadinData {
     private Scanner sc;
-    private int amountOfColumns = 1;
     CSVReader reader;
 
 
@@ -42,7 +41,4 @@ public class ReadinData {
 
     }
 
-    public void setAmountOfColumns(int amountOfColumns) {
-        this.amountOfColumns = amountOfColumns;
-    }
 }
