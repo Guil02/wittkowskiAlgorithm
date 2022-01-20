@@ -22,30 +22,34 @@
  * SOFTWARE.
  */
 
-package org.guil.view;
-
-
-
-import org.guil.controller.AppController;
-import org.guil.view.csvImportPanel.CSVPanel;
+package org.guil.view.csvImportPanel;
 
 import javax.swing.*;
-import java.io.File;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Gui {
-    private CSVPanel mainPanel;
+public class ProceedButton extends JButton {
+    CSVPanel panel;
+    public ProceedButton(CSVPanel panel) {
+        this.panel = panel;
+        setText("Proceed");
+        setAlignmentX(Component.CENTER_ALIGNMENT);
+        setAlignmentY(Component.CENTER_ALIGNMENT);
 
-    private File chosenFile;
-    private AppController controller;
 
-    public Gui(AppController controller) {
-        this.controller = controller;
-        mainPanel = new CSVPanel(controller);
+        addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(panel.getChosenFile()!=null){
+                    panel.runProgram();
+                    panel.setWarningText("");
+                }
+                else{
+                    panel.setWarningText("Please choose a file");
+                }
+            }
+        });
     }
 
-
-
-    public JPanel getMainPanel(){
-        return mainPanel;
-    }
 }

@@ -22,10 +22,48 @@
  * SOFTWARE.
  */
 
-package org.guil.view;
+package org.guil.view.csvImportPanel;
+
+import org.guil.controller.AppController;
 
 import javax.swing.*;
+import java.io.File;
 
 public class CSVPanel extends JPanel {
+    private WarningLabel label;
+    AppController controller;
+    private File chosenFile;
+    public CSVPanel(AppController controller) {
+        this.controller = controller;
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        label = new WarningLabel();
+        add(label);
+
+        FileChooserButton fileChooserButton = new FileChooserButton(this);
+        add(fileChooserButton);
+
+        ProceedButton proceedButton = new ProceedButton(this);
+        add(proceedButton);
+
+
+    }
+
+
+    public void setWarningText(String s) {
+        label.setText(s);
+    }
+
+    public void setChosenFile(File file){
+        this.chosenFile = file;
+    }
+
+    protected File getChosenFile() {
+        return chosenFile;
+    }
+
+    public void runProgram() {
+        controller.runProgram(chosenFile);
+    }
 }
+

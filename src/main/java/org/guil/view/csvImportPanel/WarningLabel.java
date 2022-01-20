@@ -22,30 +22,14 @@
  * SOFTWARE.
  */
 
-package org.guil.view;
-
-
-
-import org.guil.controller.AppController;
-import org.guil.view.csvImportPanel.CSVPanel;
+package org.guil.view.csvImportPanel;
 
 import javax.swing.*;
-import java.io.File;
+import java.awt.*;
 
-public class Gui {
-    private CSVPanel mainPanel;
-
-    private File chosenFile;
-    private AppController controller;
-
-    public Gui(AppController controller) {
-        this.controller = controller;
-        mainPanel = new CSVPanel(controller);
-    }
-
-
-
-    public JPanel getMainPanel(){
-        return mainPanel;
+public class WarningLabel extends JLabel {
+    public WarningLabel() {
+        setAlignmentX(Component.CENTER_ALIGNMENT);
+        setAlignmentY(Component.CENTER_ALIGNMENT);
     }
 }
