@@ -1,6 +1,6 @@
 # wittkowskiAlgorithm
 
-This project is an attempt at creating the wittkowski algorithm explained in (Wittkowski, K 2003).
+This project is an attempt at creating the wittkowski algorithm explained in (Wittkowski, 2003).
 
 ## current state
 This project currently only contains a Gui that reads in and prints a provided csv file using opencsv.
