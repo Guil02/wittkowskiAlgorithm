@@ -22,12 +22,10 @@
  * SOFTWARE.
  */
 
-package org.guil;
+package org.guil.view;
 
-import org.guil.controller.AppController;
+import javax.swing.*;
 
-public class Main {
-    public static void main(String[] args) {
-        AppController controller = new AppController();
-    }
+public class CSVPanel extends JPanel {
+
 }
