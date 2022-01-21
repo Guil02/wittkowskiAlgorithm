@@ -24,15 +24,54 @@
 
 package org.guil.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Wittkowski {
     private List<String[]> list;
+    private String[] firstRow;
+    private final int amountOfProcessors;
     public Wittkowski(List<String[]> list) {
+        firstRow = list.get(0);
+        list.remove(0);
         this.list = list;
+        amountOfProcessors = Runtime.getRuntime().availableProcessors();
     }
 
     public void run() {
+        int sampleSize = list.size();
+        ExecutorService executorService = Executors.newFixedThreadPool(amountOfProcessors);
+        List<Future> tasks = new ArrayList<>();
 
+        for (int offset = 0; offset < amountOfProcessors; offset++) {
+
+            int finalParallelism = amountOfProcessors;
+            int finalOffset = offset;
+            Future task = executorService.submit(() -> {
+                int i = finalOffset;
+                while (list.size() > i) {
+                    processItem(list.get(i));
+                    i += finalParallelism;
+                }
+            });
+            tasks.add(task);
+        }
+        for (Future task : tasks) {
+            try {
+                task.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        executorService.shutdown();
+    }
+    private void processItem(String[] strings) {
+        System.out.println(Arrays.toString(strings));
     }
 }
