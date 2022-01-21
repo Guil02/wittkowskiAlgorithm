@@ -47,7 +47,6 @@ public class AppController {
         JFrame frame = new JFrame();
         this.gui = new Gui(this);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
         frame.setSize(400,400);
         frame.setLocationRelativeTo(null);
         frame.add(gui.getMainPanel(), BorderLayout.CENTER);
