@@ -6,7 +6,7 @@ This project is an attempt at creating the wittkowski algorithm explained in (Wi
 This project currently only contains a Gui that reads in and prints a provided csv file using opencsv.
 
 ## usage
-A main method is provided in org.guil.main. run that and the program will start.
+A main method is provided in org.guil.main run that and the program will start.
 
 ## authors
 * **Guillaume Bams** - *Bsc DSAI student* - [Guillaume](https://github.com/Guil02) - *Lead Developer*
