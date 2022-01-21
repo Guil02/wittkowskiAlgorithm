@@ -37,12 +37,13 @@ public class ReadinData {
     public ReadinData() {
     }
 
-    public void readAll(File file) {
+    public List<String[]> readAll(File file) {
+        List<String[]> list = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             CSVReader csvReader = new CSVReader(reader);
 
-            List<String[]> list = csvReader.readAll();
+            list = csvReader.readAll();
 
             csvReader.close();
             reader.close();
@@ -57,6 +58,7 @@ public class ReadinData {
             e.printStackTrace();
         }
 
+        return list;
     }
 
 }

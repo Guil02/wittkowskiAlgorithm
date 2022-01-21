@@ -22,41 +22,17 @@
  * SOFTWARE.
  */
 
-package org.guil.controller;
+package org.guil.model;
 
-
-import org.guil.model.ReadinData;
-import org.guil.model.Wittkowski;
-import org.guil.view.Gui;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
 import java.util.List;
 
-public class AppController {
-    private Gui gui;
-    private ReadinData reader;
-    private Wittkowski wittkowski;
-    public AppController() {
-        createGui();
-        reader = new ReadinData();
+public class Wittkowski {
+    private List<String[]> list;
+    public Wittkowski(List<String[]> list) {
+        this.list = list;
     }
 
-    private void createGui(){
-        JFrame frame = new JFrame();
-        this.gui = new Gui(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.pack();
-        frame.setSize(400,400);
-        frame.setLocationRelativeTo(null);
-        frame.add(gui.getMainPanel(), BorderLayout.CENTER);
-        frame.setVisible(true);
-    }
+    public void run() {
 
-    public void runProgram(File file){
-        List<String[]> list = reader.readAll(file);
-        wittkowski = new Wittkowski(list);
-        wittkowski.run();
     }
 }

@@ -30,12 +30,9 @@ import org.guil.controller.AppController;
 import org.guil.view.csvImportPanel.CSVPanel;
 
 import javax.swing.*;
-import java.io.File;
 
 public class Gui {
     private CSVPanel mainPanel;
-
-    private File chosenFile;
     private AppController controller;
 
     public Gui(AppController controller) {
