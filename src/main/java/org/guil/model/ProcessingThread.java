@@ -37,8 +37,11 @@ public class ProcessingThread implements Runnable{
 
     @Override
     public void run() {
-        for (String[] strings : list) {
-            wittkowski.processItem(strings);
+        for (int i = 0; i < list.size(); i++) {
+            double percentage = (((double) i) / ((double) list.size()))*100;
+            System.out.println(Thread.currentThread().getName() + " is "+percentage+"% done.");
+
+            wittkowski.processItem(list.get(i));
         }
     }
 

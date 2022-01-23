@@ -24,7 +24,10 @@
 
 package org.guil.utils;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Functions {
@@ -40,5 +43,23 @@ public class Functions {
             output.add(part);
         }
         return output;
+    }
+
+    public static void writeOutput(List<Integer> output){
+        try {
+            FileWriter writer = new FileWriter("output.txt");
+            for(int i = 0; i<output.size(); i++){
+                String out = output.get(i) + "\n";
+                writer.write(out);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void print2dArray(int[][] array){
+        for (int[] ints : array) {
+            System.out.println(Arrays.toString(ints));
+        }
     }
 }

@@ -50,8 +50,10 @@ public class Wittkowski {
     }
 
     public void run() {
-        System.out.println("Started processing");
+        System.out.println("Started partitioning list");
+        long startTime = System.currentTimeMillis();
         List<List<String[]>> partition = Functions.partitionList(list, amountOfProcessors);
+        System.out.println("Done partitioning list. Time taken: "+(System.currentTimeMillis()-startTime) +"ms\n started threading");
         ProcessingThread[] task = new ProcessingThread[amountOfProcessors];
         Thread[] threads = new Thread[amountOfProcessors];
         for(int i = 0; i<amountOfProcessors; i++){
@@ -66,9 +68,10 @@ public class Wittkowski {
                 e.printStackTrace();
             }
         }
-
-        System.out.println("Finished processing");
-        System.out.println(output);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Finished threading");
+        System.out.println("Time taken: "+(endTime-startTime)+"ms");
+        Functions.writeOutput(output);
     }
 
 
