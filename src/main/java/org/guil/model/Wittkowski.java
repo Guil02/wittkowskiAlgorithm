@@ -27,15 +27,15 @@ package org.guil.model;
 import org.guil.utils.Functions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.*;
 
 public class Wittkowski {
     private List<String[]> list;
     private String[] firstRow;
     private final int amountOfProcessors;
     private final int amountOfRows;
-    private ArrayList<Double> output;
+    private ArrayList<Integer> output;
     private static final boolean temp = false;
 
     public Wittkowski(List<String[]> list) {
@@ -50,6 +50,7 @@ public class Wittkowski {
     }
 
     public void run() {
+        System.out.println("Started processing");
         List<List<String[]>> partition = Functions.partitionList(list, amountOfProcessors);
         ProcessingThread[] task = new ProcessingThread[amountOfProcessors];
         Thread[] threads = new Thread[amountOfProcessors];
@@ -66,17 +67,72 @@ public class Wittkowski {
             }
         }
 
-        System.out.println(list.size());
+        System.out.println("Finished processing");
+        System.out.println(output);
     }
 
 
     private void intializeOutputList() {
        output = new ArrayList<>();
        for(int i = 0; i<amountOfRows; i++){
-           output.add(0.0);
+           output.add(0);
        }
     }
+
     public void processItem(String[] strings) {
-//        System.out.println(Arrays.toString(strings));
+        int val =0;
+        for (int i = 0; i < list.size(); i++) {
+            if (i+1 != Integer.parseInt(strings[0])) {
+                val+=compare(strings, list.get(i));
+            }
+        }
+        output.set(Integer.parseInt(strings[0])-1,val);
+    }
+
+    private int compare(String[] initial, String[] compare) {
+
+        int[] values = new int[initial.length-10];
+        for (int i = 10; i < initial.length; i++) {
+            if (initial[i].equals("NA") || compare[i].equals("NA")){
+                values[i-10]=0;
+                continue;
+            }
+            int val1 = Integer.parseInt(initial[i]);
+            int val2 = Integer.parseInt(compare[i]);
+            if(val1>val2){
+                values[i-10]=1;
+            }
+            else if(val1<val2){
+                values[i-10]=-1;
+            }
+            else{
+                values[i-10]=0;
+            }
+        }
+
+
+        int max = -1;
+        int min = 1;
+        for(int i = 0; i<values.length; i++){
+            if(values[i]>max){
+                max = values[i];
+            }
+            else if(values[i]<min){
+                min = values[i];
+            }
+        }
+
+        if ((min == 0 && max == 0) || (min == -1 && max == 1)) {
+//            System.out.println("i: "+initial[0]+" j: "+compare[0]+" internal: "+Arrays.toString(values)+"\nmin: "+min+" max: "+max+ " output: "+0);
+            return 0;
+        } else if (min >= 0 && max == 1) {
+//            System.out.println("i: "+initial[0]+" j: "+compare[0]+" internal: "+Arrays.toString(values)+"\nmin: "+min+" max: "+max+ " output: "+1);
+            return 1;
+        } else if (min == -1 && max <= 0) {
+//            System.out.println("i: "+initial[0]+" j: "+compare[0]+" internal: "+Arrays.toString(values)+"\nmin: "+min+" max: "+max+ " output: "+-1);
+            return -1;
+        }
+
+        return 0;
     }
 }
