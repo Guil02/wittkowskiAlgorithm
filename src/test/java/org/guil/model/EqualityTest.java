@@ -22,46 +22,20 @@
  * SOFTWARE.
  */
 
-package org.guil.controller;
+package org.guil.model;
 
+import org.junit.jupiter.api.Test;
 
-import org.guil.model.ReadinData;
-import org.guil.model.Wittkowski;
-import org.guil.view.Gui;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class AppController {
-    private Gui gui;
-    private ReadinData reader;
-    private Wittkowski wittkowski;
-    private static final boolean useGPU = true;
-    public AppController() {
-        createGui();
-        reader = new ReadinData();
-    }
+public class EqualityTest {
 
-    private void createGui(){
-        JFrame frame = new JFrame();
-        this.gui = new Gui(this);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400,400);
-        frame.setLocationRelativeTo(null);
-        frame.add(gui.getMainPanel(), BorderLayout.CENTER);
-        frame.setVisible(true);
-    }
-
-    public void runProgram(File file){
-        List<String[]> list = reader.readAll(file);
-        wittkowski = new Wittkowski(list);
-        if(useGPU){
-            wittkowski.GPURun();
-        }
-        else{
-            wittkowski.run();
-        }
+    @Test
+    public void test1(){
+        int[] expected = new int[]{-34, -48, 3, 7, 7, -2, -2, -2, -2, -2, -2, -2, -2, -2, 0, 7, 7, 7, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, -48, -4, 7, 7, 7, -34, -48, -48, -48, -16, -48, -48, -48, -48, -48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 56, 56, 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -48, -16, -6, -16, -16, -16, -16, -16, 7, 7, 7};
+        int[] actual = new int[]{-34, -48, 3, 7, 7, -2, -2, -2, -2, -2, -2, -2, -2, -2, 0, 7, 7, 7, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, -48, -4, 7, 7, 7, -34, -48, -48, -48, -16, -48, -48, -48, -48, -48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 56, 56, 56, 56, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -48, -16, -6, -16, -16, -16, -16, -16, 7, 7, 7};
+        assertArrayEquals(expected, actual);
     }
 }

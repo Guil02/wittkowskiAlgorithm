@@ -24,6 +24,7 @@
 
 package org.guil.utils;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,15 +46,37 @@ public class Functions {
         return output;
     }
 
-    public static void writeOutput(List<Integer> output){
-        try {
-            FileWriter writer = new FileWriter("output.txt");
-            for(int i = 0; i<output.size(); i++){
-                String out = output.get(i) + "\n";
-                writer.write(out);
+    public static void toPrint(List<String[]> output){
+        int index = 0;
+        for(int i = 0; i<output.size(); i++){
+            for(int j = 10; j<output.get(i).length; j++){
+                System.out.println("srcArrayA["+index+"]="+output.get(i)[j]+";");
+                index++;
             }
+        }
+    }
+
+    public static void writeOutput(List<Integer> output){
+        try (FileWriter writer = new FileWriter("output.csv");
+             BufferedWriter bw = new BufferedWriter(writer)) {
+            for(int i = 0; i<output.size(); i++){
+                bw.write((i+1)+","+output.get(i)+"\n");
+            }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.format("IOException: %s%n", e);
+        }
+    }
+
+    public static void writeOutput(int[] output) {
+        try (FileWriter writer = new FileWriter("output.csv");
+             BufferedWriter bw = new BufferedWriter(writer)) {
+            for(int i = 0; i<output.length; i++){
+                bw.write((i+1)+","+output[i]+"\n");
+            }
+
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
         }
     }
 
@@ -61,5 +84,21 @@ public class Functions {
         for (int[] ints : array) {
             System.out.println(Arrays.toString(ints));
         }
+    }
+
+    public static int[] prepareArrayForGPU(List<String[]> input, int startIndex){
+        int amountOfFactors = input.get(0).length - startIndex;
+        int[] value = new int[amountOfFactors *input.size()];
+        for(int j = 0; j<input.size(); j++){
+            for(int i = startIndex; i<input.get(j).length; i++){
+                if(input.get(j)[i].equals("NA")){
+                    value[j*amountOfFactors+i]=-2;
+                }
+                else{
+                    value[j*amountOfFactors+(i-startIndex)] = Integer.parseInt(input.get(j)[i]);
+                }
+            }
+        }
+        return value;
     }
 }

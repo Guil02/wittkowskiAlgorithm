@@ -71,7 +71,9 @@ public class Wittkowski {
         long endTime = System.currentTimeMillis();
         System.out.println("Finished threading");
         System.out.println("Time taken: "+(endTime-startTime)+"ms");
+        System.out.println(output);
         Functions.writeOutput(output);
+//        Functions.toPrint(list);
     }
 
 
@@ -137,5 +139,15 @@ public class Wittkowski {
         }
 
         return 0;
+    }
+
+    public void GPURun(){
+        int sampleSize = list.size();
+        int amountOfFactors = list.get(0).length-10;
+        int[] values = Functions.prepareArrayForGPU(list, 10);
+        int[] destinationArray = new int[sampleSize];
+
+        OpenCLUser gpu = new OpenCLUser(sampleSize, amountOfFactors, values, destinationArray);
+        gpu.run();
     }
 }
