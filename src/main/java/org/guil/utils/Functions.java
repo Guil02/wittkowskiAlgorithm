@@ -90,7 +90,7 @@ public class Functions {
         for(int j = 0; j<input.size(); j++){
             for(int i = startIndex; i<input.get(j).length; i++){
                 if(input.get(j)[i].equals("NA")){
-                    value[j*amountOfFactors+i]=-2;
+                    value[j*amountOfFactors+(i-startIndex)]=2147483647;
                 }
                 else{
                     value[j*amountOfFactors+(i-startIndex)] = Integer.parseInt(input.get(j)[i]);

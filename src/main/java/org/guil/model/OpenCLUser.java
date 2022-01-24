@@ -38,9 +38,9 @@ public class OpenCLUser {
                     "    " +
                     "        for (int i = 0; i < *size; i++) {" +
                     "            if (k != i) {" +
-                    "                int evals[*amountOfFactors];" +
+                    "                int evals[2000];" +
                     "                for (int j = 0; j < *amountOfFactors; j++) {" +
-                    "                    if (arr[k**amountOfFactors+j] == -2 || arr[i**amountOfFactors+j] == -2) {" +
+                    "                    if (arr[k**amountOfFactors+j] == 2147483647 || arr[i**amountOfFactors+j] == 2147483647) {" +
                     "                        evals[j] = 0;" +
                     "                    } else if (arr[k**amountOfFactors+j] < arr[i**amountOfFactors+j]) {" +
                     "                        evals[j] = -1;" +
