@@ -27,7 +27,6 @@ package org.guil.model;
 import org.guil.utils.Functions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Wittkowski {
@@ -143,11 +142,20 @@ public class Wittkowski {
 
     public void GPURun(){
         int sampleSize = list.size();
-        int amountOfFactors = list.get(0).length-10;
+        int amountOfFactors = list.get(0).length - 10;
+        System.out.println("Started preparing array");
+        long startPrepTime = System.currentTimeMillis();
         int[] values = Functions.prepareArrayForGPU(list, 10);
+        long endPrepTime = System.currentTimeMillis();
+        System.out.println("Finished preparing array, time taken: " + (endPrepTime - startPrepTime) + "ms");
         int[] destinationArray = new int[sampleSize];
 
         OpenCLUser gpu = new OpenCLUser(sampleSize, amountOfFactors, values, destinationArray);
+        System.out.println("GPU running started");
+        long startTime = System.currentTimeMillis();
         gpu.run();
+        long endTime = System.currentTimeMillis();
+        System.out.println("GPU running finished");
+        System.out.println("Time taken: " + (endTime - startTime) + "ms");
     }
 }
