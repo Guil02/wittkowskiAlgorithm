@@ -191,7 +191,7 @@ public class OpenCLUser {
         clReleaseContext(context);
 
 //
-        if (n <= 100)
+        if (n <= 10)
         {
             System.out.println("Result: "+java.util.Arrays.toString(dstArray));
         }
