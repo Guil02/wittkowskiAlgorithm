@@ -196,6 +196,5 @@ public class OpenCLUser {
             System.out.println("Result: "+java.util.Arrays.toString(dstArray));
         }
 
-        Functions.writeOutput(dstArray);
     }
 }

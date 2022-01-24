@@ -24,9 +24,7 @@
 
 package org.guil.utils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -100,5 +98,56 @@ public class Functions {
             }
         }
         return value;
+    }
+
+    public static void addOutputToCsv(int[] destinationArray, File file, int startIndex) {
+        String[] lines = new String[destinationArray.length+1];
+        String[] output = new String[destinationArray.length+1];
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            int index = 0;
+            while(index<destinationArray.length+1){
+                lines[index++] = reader.readLine();
+            }
+
+            for(int i = 0; i<lines.length; i++){
+                int amountOfCommas = 0;
+                int insertionIndex = 0;
+                while(amountOfCommas<startIndex){
+                    if(lines[i].charAt(insertionIndex)==','){
+                        amountOfCommas++;
+                    }
+                    insertionIndex++;
+                }
+                StringBuilder builder = new StringBuilder(lines[i]);
+                StringBuilder subBuilder = new StringBuilder();
+                if(i == 0){
+                    subBuilder.append("rank,");
+                    builder.insert(insertionIndex,subBuilder);
+                    output[i]=builder.toString();
+                    continue;
+                }
+                subBuilder.append(destinationArray[i-1]);
+                subBuilder.append(",");
+                builder.insert(insertionIndex, subBuilder);
+                output[i]=builder.toString();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (FileWriter writer = new FileWriter("output.csv");
+             BufferedWriter bw = new BufferedWriter(writer)) {
+            for(int i = 0; i<output.length; i++){
+                bw.write(output[i]+"\n");
+            }
+
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+
     }
 }

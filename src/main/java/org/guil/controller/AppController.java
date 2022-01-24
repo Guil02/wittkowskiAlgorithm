@@ -27,6 +27,7 @@ package org.guil.controller;
 
 import org.guil.model.ReadinData;
 import org.guil.model.Wittkowski;
+import org.guil.utils.Functions;
 import org.guil.view.Gui;
 
 import javax.swing.*;
@@ -38,6 +39,7 @@ public class AppController {
     private Gui gui;
     private ReadinData reader;
     private Wittkowski wittkowski;
+    private static final int startIndex = 10;
     private static final boolean useGPU = true;
     public AppController() {
         createGui();
@@ -59,6 +61,7 @@ public class AppController {
         wittkowski = new Wittkowski(list);
         if(useGPU){
             wittkowski.GPURun();
+            Functions.addOutputToCsv(wittkowski.getGpuOutput(), file,startIndex);
         }
         else{
             wittkowski.run();

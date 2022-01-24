@@ -140,6 +140,8 @@ public class Wittkowski {
         return 0;
     }
 
+    private int[] gpuOutput;
+
     public void GPURun(){
         int sampleSize = list.size();
         int amountOfFactors = list.get(0).length - 10;
@@ -157,5 +159,10 @@ public class Wittkowski {
         long endTime = System.currentTimeMillis();
         System.out.println("GPU running finished");
         System.out.println("Time taken: " + (endTime - startTime) + "ms");
+        gpuOutput = destinationArray;
+    }
+
+    public int[] getGpuOutput() {
+        return gpuOutput;
     }
 }
