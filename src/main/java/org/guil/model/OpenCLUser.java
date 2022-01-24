@@ -33,7 +33,7 @@ import static org.jocl.CL.clReleaseContext;
 
 public class OpenCLUser {
     private final static String programSource =
-            "__kernel void sampleKernel(__global int* arr, __global int *out, __global const int *amountOfFactors, __global const int *size){" +
+            "__kernel void sampleKernel(__global double* arr, __global int *out, __global const int *amountOfFactors, __global const int *size){" +
                     "      int k = get_global_id(0);" +
                     "    " +
                     "        for (int i = 0; i < *size; i++) {" +
@@ -75,10 +75,10 @@ public class OpenCLUser {
                     "}";
     private int n;
     private int amountOfFactors;
-    private int[] srcArrayA;
+    private double[] srcArrayA;
     private int[] dstArray;
 
-    public OpenCLUser(int n, int amountOfFactors, int[] srcArrayA, int[] dstArray) {
+    public OpenCLUser(int n, int amountOfFactors, double[] srcArrayA, int[] dstArray) {
         this.n = n;
         this.amountOfFactors = amountOfFactors;
         this.srcArrayA = srcArrayA;
@@ -137,7 +137,7 @@ public class OpenCLUser {
         cl_mem memObjects[] = new cl_mem[4];
         memObjects[0] = clCreateBuffer(context,
                 CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-                Sizeof.cl_int * n*amountOfFactors, srcA, null);
+                Sizeof.cl_double * n*amountOfFactors, srcA, null);
         memObjects[1] = clCreateBuffer(context,
                 CL_MEM_READ_WRITE,
                 Sizeof.cl_int * n, null, null);

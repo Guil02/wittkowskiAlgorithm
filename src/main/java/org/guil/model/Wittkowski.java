@@ -147,7 +147,7 @@ public class Wittkowski {
         int amountOfFactors = list.get(0).length - 10;
         System.out.println("Started preparing array");
         long startPrepTime = System.currentTimeMillis();
-        int[] values = Functions.prepareArrayForGPU(list, 10);
+        double[] values = Functions.prepareArrayForGPU(list, 10);
         long endPrepTime = System.currentTimeMillis();
         System.out.println("Finished preparing array, time taken: " + (endPrepTime - startPrepTime) + "ms");
         int[] destinationArray = new int[sampleSize];

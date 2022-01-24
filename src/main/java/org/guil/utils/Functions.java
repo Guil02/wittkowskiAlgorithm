@@ -84,16 +84,17 @@ public class Functions {
         }
     }
 
-    public static int[] prepareArrayForGPU(List<String[]> input, int startIndex){
+    public static double[] prepareArrayForGPU(List<String[]> input, int startIndex){
         int amountOfFactors = input.get(0).length - startIndex;
-        int[] value = new int[amountOfFactors *input.size()];
+        double[] value = new double[amountOfFactors *input.size()];
         for(int j = 0; j<input.size(); j++){
             for(int i = startIndex; i<input.get(j).length; i++){
+                int v = j * amountOfFactors + (i - startIndex);
                 if(input.get(j)[i].equals("NA")){
-                    value[j*amountOfFactors+(i-startIndex)]=2147483647;
+                    value[v]=2147483647;
                 }
                 else{
-                    value[j*amountOfFactors+(i-startIndex)] = Integer.parseInt(input.get(j)[i]);
+                    value[v] = Double.parseDouble(input.get(j)[i]);
                 }
             }
         }
