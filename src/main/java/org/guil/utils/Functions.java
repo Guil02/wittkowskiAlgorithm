@@ -24,6 +24,9 @@
 
 package org.guil.utils;
 
+import org.guil.model.PartitioningThread;
+import org.guil.model.ProcessingThread;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,6 +101,38 @@ public class Functions {
                 }
             }
         }
+        return value;
+    }
+
+    public static double[] prepareArrayForGPUThreading(List<String[]> input, int startIndex, int amountOfProcessors){
+        System.out.println("Started partitioning list");
+        long startTime = System.currentTimeMillis();
+        List<List<String[]>> partition = Functions.partitionList(input, amountOfProcessors);
+        System.out.println("Done partitioning list. Time taken: "+(System.currentTimeMillis()-startTime) +"ms\n started threading");
+        startTime = System.currentTimeMillis();
+
+        int amountOfFactors = input.get(0).length - startIndex;
+        double[] value = new double[amountOfFactors *input.size()];
+
+        PartitioningThread[] task = new PartitioningThread[amountOfProcessors];
+        Thread[] threads = new Thread[amountOfProcessors];
+        int startX = 0;
+        for(int i = 0; i<amountOfProcessors; i++){
+            task[i] = new PartitioningThread(value, partition.get(i), 10, startX);
+            startX += partition.get(i).size();
+            threads[i] = new Thread(task[i]);
+            threads[i].start();
+        }
+        for(int i = 0; i <task.length; i++){
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Finished threading");
+        System.out.println("Time taken: "+(endTime-startTime)+"ms");
         return value;
     }
 

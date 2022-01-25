@@ -141,13 +141,21 @@ public class Wittkowski {
     }
 
     private int[] gpuOutput;
+    private static final boolean useThreading = true;
 
     public void GPURun(){
         int sampleSize = list.size();
         int amountOfFactors = list.get(0).length - 10;
         System.out.println("Started preparing array");
         long startPrepTime = System.currentTimeMillis();
-        double[] values = Functions.prepareArrayForGPU(list, 10);
+        double[] values;
+        if(useThreading){
+            values = Functions.prepareArrayForGPUThreading(list, 10, amountOfProcessors);
+        }
+        else{
+            values = Functions.prepareArrayForGPU(list, 10);
+
+        }
         long endPrepTime = System.currentTimeMillis();
         System.out.println("Finished preparing array, time taken: " + (endPrepTime - startPrepTime) + "ms");
         int[] destinationArray = new int[sampleSize];
