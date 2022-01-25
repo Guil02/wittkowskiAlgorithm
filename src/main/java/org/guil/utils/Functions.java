@@ -174,8 +174,9 @@ public class Functions {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        try (FileWriter writer = new FileWriter("output.csv");
+        StringBuilder builder = new StringBuilder(file.getName());
+        builder.insert(file.getName().length()-4, "_ranked");
+        try (FileWriter writer = new FileWriter(builder.toString());
              BufferedWriter bw = new BufferedWriter(writer)) {
             for(int i = 0; i<output.length; i++){
                 bw.write(output[i]+"\n");

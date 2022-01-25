@@ -56,15 +56,18 @@ public class AppController {
         frame.setVisible(true);
     }
 
-    public void runProgram(File file){
-        List<String[]> list = reader.readAll(file);
-        wittkowski = new Wittkowski(list);
-        if(useGPU){
-            wittkowski.GPURun();
-            Functions.addOutputToCsv(wittkowski.getGpuOutput(), file,startIndex);
-        }
-        else{
-            wittkowski.run();
+    public void runProgram(File[] file){
+        for(int i = 0; i<file.length; i++){
+            System.out.println("Started file: "+file[i].getName());
+            List<String[]> list = reader.readAll(file[i]);
+            wittkowski = new Wittkowski(list);
+            if(useGPU){
+                wittkowski.GPURun();
+                Functions.addOutputToCsv(wittkowski.getGpuOutput(), file[i],startIndex);
+            }
+            else{
+                wittkowski.run();
+            }
         }
     }
 }

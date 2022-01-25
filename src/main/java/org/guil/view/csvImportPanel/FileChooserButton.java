@@ -50,13 +50,14 @@ public class FileChooserButton extends JButton {
 
     private void showFileChooser() {
         JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(true);
         FileFilter filter = new FileNameExtensionFilter(".csv", "csv");
         chooser.setFileFilter(filter);
         File workingDirectory = new File(System.getProperty("user.dir"));
         chooser.setCurrentDirectory(workingDirectory);
         int result = chooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            panel.setChosenFile(chooser.getSelectedFile());
+            panel.setChosenFile(chooser.getSelectedFiles());
             panel.setWarningText("");
         }
     }

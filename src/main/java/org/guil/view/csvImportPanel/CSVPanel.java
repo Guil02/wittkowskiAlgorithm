@@ -32,7 +32,7 @@ import java.io.File;
 public class CSVPanel extends JPanel {
     private WarningLabel label;
     AppController controller;
-    private File chosenFile;
+    private File[] chosenFile;
     public CSVPanel(AppController controller) {
         this.controller = controller;
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -54,11 +54,11 @@ public class CSVPanel extends JPanel {
         label.setText(s);
     }
 
-    public void setChosenFile(File file){
+    public void setChosenFile(File[] file){
         this.chosenFile = file;
     }
 
-    protected File getChosenFile() {
+    protected File[] getChosenFile() {
         return chosenFile;
     }
 
