@@ -20,3 +20,5 @@ datasets.zip
 datasets
 output.csv
 /DE11 met rank.csv
+data
+*.csv
