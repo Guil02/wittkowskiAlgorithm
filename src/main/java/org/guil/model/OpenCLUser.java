@@ -32,6 +32,7 @@ import static org.jocl.CL.*;
 import static org.jocl.CL.clReleaseContext;
 
 public class OpenCLUser {
+
     private final static String programSource =
             "__kernel void sampleKernel(__global double* arr, __global int *out, __global const int *amountOfFactors, __global const int *size){" +
                     "      int k = get_global_id(0);" +
